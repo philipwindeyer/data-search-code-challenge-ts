@@ -1,0 +1,29 @@
+{
+  "name": "data-search-code-challenge-ts",
+  "version": "0.0.1",
+  "description": "A small command-line app written in TypeScript, to search structured data provided in JSON files (as part of a code challenge)",
+  "main": "bin/data-search",
+  "repository": "git@github.com:philipwindeyer/data-search-code-challenge-ts.git",
+  "author": "Philip Windeyer <philipwindeyer@gmail.com>",
+  "license": "MIT",
+  "bin": {
+    "search": "./bin/data-search"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "prettier": {
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "dependencies": {
+    "boxen": "^4.2.0",
+    "chalk": "^4.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.2"
+  }
+}
