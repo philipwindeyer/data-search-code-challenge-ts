@@ -16,6 +16,11 @@ It specifically provides the ability to search for "organisations", "users" and 
 - [Commands](#commands)
 <!-- tocstop -->
 
+## Prerequisites
+
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/en/) - the app is built on v15 but will run on older versions also (v12 and up)
+
 # Usage
 
 <!-- TODO: update this to reflect local usage only -->
