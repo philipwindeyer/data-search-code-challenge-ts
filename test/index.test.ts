@@ -1,8 +1,8 @@
 import {expect, test} from '@oclif/test'
 
-import cmd = require('../src');
+import cmd = require('../src')
 
-describe('data-search-code-challenge-ts', () => {
+describe('data-search', () => {
   test
   .stdout()
   .do(() => cmd.run([]))

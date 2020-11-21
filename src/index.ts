@@ -1,6 +1,6 @@
 import {Command, flags} from '@oclif/command'
 
-class DataSearchCodeChallengeTs extends Command {
+class DataSearch extends Command {
   static description = 'describe the command here'
 
   static flags = {
@@ -16,7 +16,7 @@ class DataSearchCodeChallengeTs extends Command {
   static args = [{name: 'file'}]
 
   async run() {
-    const {args, flags} = this.parse(DataSearchCodeChallengeTs)
+    const {args, flags} = this.parse(DataSearch)
 
     const name = flags.name ?? 'world'
     this.log(`hello ${name} from ./src/index.ts`)
@@ -26,4 +26,4 @@ class DataSearchCodeChallengeTs extends Command {
   }
 }
 
-export = DataSearchCodeChallengeTs
+export = DataSearch
