@@ -2,8 +2,8 @@ import { SearchableData } from './search';
 
 export const getSearchableFields = (data: SearchableData) =>
   data.reduce<string[]>((keys, object) => {
-    Object.keys(object).forEach((key) => {
-      if (!keys.includes(key)) {
+    Object.entries(object).forEach(([key, value]) => {
+      if (!keys.includes(key) && typeof value != 'function') {
         keys.push(key);
       }
     });

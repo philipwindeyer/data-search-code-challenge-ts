@@ -62,4 +62,21 @@ describe('#getSearchableFields', () => {
       expect(getSearchableFields(users)).to.deep.equal(expected);
     });
   });
+
+  describe('when data is made up of object that also contain functions', () => {
+    let data: any[];
+
+    beforeEach(() => {
+      data = organizations.map((organization) => ({
+        ...organization,
+        getSomething: () => {},
+        w00tB33r: () => {},
+      }));
+    });
+
+    it('returns an array of "searchable fields" with functions omitted', () => {
+      const expected = ['_id', 'url', 'external_id', 'name', 'domain_names', 'created_at', 'details', 'shared_tickets', 'tags'];
+      expect(getSearchableFields(data)).to.deep.equal(expected);
+    });
+  });
 });
