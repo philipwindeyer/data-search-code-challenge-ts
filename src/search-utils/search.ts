@@ -13,5 +13,9 @@ export const search = (term: string, value: string, data: SearchableData) =>
       return isEmpty(match);
     }
 
+    if (Array.isArray(match)) {
+      return match.map((element) => String(element)).includes(value);
+    }
+
     return String(match) === value;
   });

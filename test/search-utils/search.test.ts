@@ -46,4 +46,10 @@ describe('#search', () => {
       ]);
     });
   });
+
+  describe('when search value corresponds to a value in an array', () => {
+    it('returns matching object in an array', () => {
+      expect(search('tags', 'Gambrills', usersWithEmptyValuesInVariousForms)).to.deep.equal([usersWithEmptyValuesInVariousForms[1]]);
+    });
+  });
 });
