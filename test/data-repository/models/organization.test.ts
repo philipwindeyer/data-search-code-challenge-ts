@@ -32,14 +32,6 @@ describe('getOrganization', () => {
     });
   });
 
-  describe('#getSearchableFields', () => {
-    it('returns an array of "searchable fields"', () => {
-      const expected = ['_id', 'url', 'external_id', 'name', 'domain_names', 'created_at', 'details', 'shared_tickets', 'tags'];
-
-      expect(organization.getSearchableFields()).to.deep.equal(expected);
-    });
-  });
-
   describe('#getUsers', () => {
     describe('when no users provided to collection', () => {
       it('returns an empty array', () => {
@@ -185,6 +177,14 @@ describe('getOrganization', () => {
       it('returns ticket assigned to the organization', () => {
         expect(organization.getTickets()).to.deep.equal(tickets);
       });
+    });
+  });
+
+  describe('#getSearchableFields', () => {
+    it('returns an array of "searchable fields"', () => {
+      const expected = ['_id', 'url', 'external_id', 'name', 'domain_names', 'created_at', 'details', 'shared_tickets', 'tags'];
+
+      expect(organization.getSearchableFields()).to.deep.equal(expected);
     });
   });
 });

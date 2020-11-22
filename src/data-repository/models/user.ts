@@ -1,3 +1,5 @@
+import { Organization, Ticket } from '.';
+
 export interface User {
   _id: number;
   url: string;
@@ -20,9 +22,10 @@ export interface User {
   role: string;
 }
 
-export const getUser = (props: User) => ({
+export const getUser = (props: User, organizations: Organization[] = [], tickets: Ticket[] = []) => ({
   ...props,
-  getOrganization: () => {},
-  getTickets: () => {},
+  getOrganization: () => organizations.find((organization) => organization._id === props.organization_id),
+  getAssignedTickets: () => tickets.filter((ticket) => ticket.assignee_id === props._id),
+  getSubmittedTickets: () => tickets.filter((ticket) => ticket.submitter_id === props._id),
   getSearchableFields: () => Object.keys(props),
 });

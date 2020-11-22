@@ -1,5 +1,4 @@
-import { Ticket } from './ticket';
-import { User } from './user';
+import { User, Ticket } from '.';
 
 export interface Organization {
   _id: number;
