@@ -12,7 +12,7 @@ export interface Organization {
   tags: string[];
 }
 
-export const getOrganization = (props: Organization, users: User[] = [], tickets: Ticket[] = []) => ({
+export const wrapOrganization = (props: Organization, users: User[] = [], tickets: Ticket[] = []) => ({
   ...props,
   getUsers: () => users.filter((user) => user.organization_id === props._id),
   getTickets: () => tickets.filter((ticket) => ticket.organization_id === props._id),

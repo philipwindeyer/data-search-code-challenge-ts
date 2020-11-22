@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { getOrganization } from '../../../src/data-repository/models';
+import { wrapOrganization } from '../../../src/data-repository/models';
 
-describe('getOrganization', () => {
+describe('wrapOrganization', () => {
   const sample = {
     _id: 125,
     url: 'http://initech.zendesk.com/api/v2/organizations/125.json',
@@ -14,10 +14,10 @@ describe('getOrganization', () => {
     tags: ['Vance', 'Ray', 'Jacobs', 'Frank'],
   };
 
-  let organization: ReturnType<typeof getOrganization>;
+  let organization: ReturnType<typeof wrapOrganization>;
 
   beforeEach(() => {
-    organization = getOrganization(sample);
+    organization = wrapOrganization(sample);
   });
 
   describe('#new', () => {
@@ -65,7 +65,7 @@ describe('getOrganization', () => {
       ];
 
       beforeEach(() => {
-        organization = getOrganization(sample, users, []);
+        organization = wrapOrganization(sample, users, []);
       });
 
       it('returns an empty array', () => {
@@ -99,7 +99,7 @@ describe('getOrganization', () => {
       ];
 
       beforeEach(() => {
-        organization = getOrganization(sample, users, []);
+        organization = wrapOrganization(sample, users, []);
       });
 
       it('returns user part of the organization', () => {
@@ -139,7 +139,7 @@ describe('getOrganization', () => {
       ];
 
       beforeEach(() => {
-        organization = getOrganization(sample, [], tickets);
+        organization = wrapOrganization(sample, [], tickets);
       });
 
       it('returns an empty array', () => {
@@ -171,7 +171,7 @@ describe('getOrganization', () => {
       ];
 
       beforeEach(() => {
-        organization = getOrganization(sample, [], tickets);
+        organization = wrapOrganization(sample, [], tickets);
       });
 
       it('returns ticket assigned to the organization', () => {

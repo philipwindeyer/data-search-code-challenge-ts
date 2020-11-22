@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { getUser } from '../../../src/data-repository/models';
+import { wrapUser } from '../../../src/data-repository/models';
 
-describe('getUser', () => {
+describe('wrapUser', () => {
   const sample = {
     _id: 34,
     url: 'http://initech.zendesk.com/api/v2/users/34.json',
@@ -24,10 +24,10 @@ describe('getUser', () => {
     role: 'agent',
   };
 
-  let user: ReturnType<typeof getUser>;
+  let user: ReturnType<typeof wrapUser>;
 
   beforeEach(() => {
-    user = getUser(sample);
+    user = wrapUser(sample);
   });
 
   describe('#new', () => {
@@ -66,7 +66,7 @@ describe('getUser', () => {
       ];
 
       beforeEach(() => {
-        user = getUser(sample, organizations, []);
+        user = wrapUser(sample, organizations, []);
       });
 
       it('returns undefined', () => {
@@ -90,7 +90,7 @@ describe('getUser', () => {
       ];
 
       beforeEach(() => {
-        user = getUser(sample, organizations, []);
+        user = wrapUser(sample, organizations, []);
       });
 
       it('returns user part of the organization', () => {
@@ -130,7 +130,7 @@ describe('getUser', () => {
       ];
 
       beforeEach(() => {
-        user = getUser(sample, [], tickets);
+        user = wrapUser(sample, [], tickets);
       });
 
       it('returns an empty array', () => {
@@ -161,7 +161,7 @@ describe('getUser', () => {
       ];
 
       beforeEach(() => {
-        user = getUser(sample, [], tickets);
+        user = wrapUser(sample, [], tickets);
       });
 
       it('returns ticket assigned to the user', () => {
@@ -201,7 +201,7 @@ describe('getUser', () => {
       ];
 
       beforeEach(() => {
-        user = getUser(sample, [], tickets);
+        user = wrapUser(sample, [], tickets);
       });
 
       it('returns an empty array', () => {
@@ -233,7 +233,7 @@ describe('getUser', () => {
       ];
 
       beforeEach(() => {
-        user = getUser(sample, [], tickets);
+        user = wrapUser(sample, [], tickets);
       });
 
       it('returns ticket submitted by the user', () => {

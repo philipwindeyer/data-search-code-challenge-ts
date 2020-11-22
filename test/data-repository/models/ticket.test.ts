@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { getTicket } from '../../../src/data-repository/models';
+import { wrapTicket } from '../../../src/data-repository/models';
 
-describe('getTicket', () => {
+describe('wrapTicket', () => {
   const sample = {
     _id: '674a19a1-c330-45fb-8b61-b4d77ba87130',
     url: 'http://initech.zendesk.com/api/v2/tickets/674a19a1-c330-45fb-8b61-b4d77ba87130.json',
@@ -22,10 +22,10 @@ describe('getTicket', () => {
     via: 'voice',
   };
 
-  let ticket: ReturnType<typeof getTicket>;
+  let ticket: ReturnType<typeof wrapTicket>;
 
   beforeEach(() => {
-    ticket = getTicket(sample);
+    ticket = wrapTicket(sample);
   });
 
   describe('#new', () => {
@@ -74,7 +74,7 @@ describe('getTicket', () => {
       ];
 
       beforeEach(() => {
-        ticket = getTicket(sample, [], users);
+        ticket = wrapTicket(sample, [], users);
       });
 
       it('returns undefined', () => {
@@ -108,7 +108,7 @@ describe('getTicket', () => {
       ];
 
       beforeEach(() => {
-        ticket = getTicket(sample, [], users);
+        ticket = wrapTicket(sample, [], users);
       });
 
       it('returns user that submitted the ticket', () => {
@@ -150,7 +150,7 @@ describe('getTicket', () => {
       ];
 
       beforeEach(() => {
-        ticket = getTicket(sample, [], users);
+        ticket = wrapTicket(sample, [], users);
       });
 
       it('returns undefined', () => {
@@ -184,7 +184,7 @@ describe('getTicket', () => {
       ];
 
       beforeEach(() => {
-        ticket = getTicket(sample, [], users);
+        ticket = wrapTicket(sample, [], users);
       });
 
       it('returns user the ticket is assigned to', () => {
@@ -216,7 +216,7 @@ describe('getTicket', () => {
       ];
 
       beforeEach(() => {
-        ticket = getTicket(sample, organizations, []);
+        ticket = wrapTicket(sample, organizations, []);
       });
 
       it('returns undefined', () => {
@@ -240,7 +240,7 @@ describe('getTicket', () => {
       ];
 
       beforeEach(() => {
-        ticket = getTicket(sample, organizations, []);
+        ticket = wrapTicket(sample, organizations, []);
       });
 
       it('returns ticket part of the organization', () => {

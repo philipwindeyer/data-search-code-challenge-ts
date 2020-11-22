@@ -22,7 +22,7 @@ export interface User {
   role: string;
 }
 
-export const getUser = (props: User, organizations: Organization[] = [], tickets: Ticket[] = []) => ({
+export const wrapUser = (props: User, organizations: Organization[] = [], tickets: Ticket[] = []) => ({
   ...props,
   getOrganization: () => organizations.find((organization) => organization._id === props.organization_id),
   getAssignedTickets: () => tickets.filter((ticket) => ticket.assignee_id === props._id),
