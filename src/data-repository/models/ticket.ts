@@ -24,5 +24,4 @@ export const wrapTicket = (props: Ticket, organizations: Organization[] = [], us
   getSubmitter: () => users.find((user) => user._id === props.submitter_id),
   getAssignee: () => users.find((user) => user._id === props.assignee_id),
   getOrganization: () => organizations.find((organization) => organization._id === props.organization_id),
-  getSearchableFields: () => Object.keys(props),
 });

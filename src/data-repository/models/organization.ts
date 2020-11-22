@@ -16,5 +16,4 @@ export const wrapOrganization = (props: Organization, users: User[] = [], ticket
   ...props,
   getUsers: () => users.filter((user) => user.organization_id === props._id),
   getTickets: () => tickets.filter((ticket) => ticket.organization_id === props._id),
-  getSearchableFields: () => Object.keys(props),
 });

@@ -32,14 +32,13 @@ describe('wrapUser', () => {
 
   describe('#new', () => {
     it('build an user object from data with helper fns', () => {
-      const { getOrganization, getAssignedTickets, getSubmittedTickets, getSearchableFields, ...userProps } = user;
+      const { getOrganization, getAssignedTickets, getSubmittedTickets, ...userProps } = user;
 
       expect(userProps).to.deep.equal(sample);
 
       expect(getOrganization).to.be.a('Function');
       expect(getAssignedTickets).to.be.a('Function');
       expect(getSubmittedTickets).to.be.a('Function');
-      expect(getSearchableFields).to.be.a('Function');
     });
   });
 
@@ -239,34 +238,6 @@ describe('wrapUser', () => {
       it('returns ticket submitted by the user', () => {
         expect(user.getSubmittedTickets()).to.deep.equal(tickets);
       });
-    });
-  });
-
-  describe('#getSearchableFields', () => {
-    it('returns an array of "searchable fields"', () => {
-      const expected = [
-        '_id',
-        'url',
-        'external_id',
-        'name',
-        'alias',
-        'created_at',
-        'active',
-        'verified',
-        'shared',
-        'locale',
-        'timezone',
-        'last_login_at',
-        'email',
-        'phone',
-        'signature',
-        'organization_id',
-        'tags',
-        'suspended',
-        'role',
-      ];
-
-      expect(user.getSearchableFields()).to.deep.equal(expected);
     });
   });
 });

@@ -30,14 +30,13 @@ describe('wrapTicket', () => {
 
   describe('#new', () => {
     it('build an ticket object from data with helper fns', () => {
-      const { getSubmitter, getAssignee, getOrganization, getSearchableFields, ...ticketProps } = ticket;
+      const { getSubmitter, getAssignee, getOrganization, ...ticketProps } = ticket;
 
       expect(ticketProps).to.deep.equal(sample);
 
       expect(getSubmitter).to.be.a('Function');
       expect(getAssignee).to.be.a('Function');
       expect(getOrganization).to.be.a('Function');
-      expect(getSearchableFields).to.be.a('Function');
     });
   });
 
@@ -246,31 +245,6 @@ describe('wrapTicket', () => {
       it('returns ticket part of the organization', () => {
         expect(ticket.getOrganization()).to.deep.equal(organizations[0]);
       });
-    });
-  });
-
-  describe('#getSearchableFields', () => {
-    it('returns an array of "searchable fields"', () => {
-      const expected = [
-        '_id',
-        'url',
-        'external_id',
-        'created_at',
-        'type',
-        'subject',
-        'description',
-        'priority',
-        'status',
-        'submitter_id',
-        'assignee_id',
-        'organization_id',
-        'tags',
-        'has_incidents',
-        'due_at',
-        'via',
-      ];
-
-      expect(ticket.getSearchableFields()).to.deep.equal(expected);
     });
   });
 });

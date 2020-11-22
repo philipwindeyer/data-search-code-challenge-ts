@@ -22,13 +22,12 @@ describe('wrapOrganization', () => {
 
   describe('#new', () => {
     it('build an organization object from data with helper fns', () => {
-      const { getUsers, getTickets, getSearchableFields, ...organizationProps } = organization;
+      const { getUsers, getTickets, ...organizationProps } = organization;
 
       expect(organizationProps).to.deep.equal(sample);
 
       expect(getUsers).to.be.a('Function');
       expect(getTickets).to.be.a('Function');
-      expect(getSearchableFields).to.be.a('Function');
     });
   });
 
@@ -177,14 +176,6 @@ describe('wrapOrganization', () => {
       it('returns ticket assigned to the organization', () => {
         expect(organization.getTickets()).to.deep.equal(tickets);
       });
-    });
-  });
-
-  describe('#getSearchableFields', () => {
-    it('returns an array of "searchable fields"', () => {
-      const expected = ['_id', 'url', 'external_id', 'name', 'domain_names', 'created_at', 'details', 'shared_tickets', 'tags'];
-
-      expect(organization.getSearchableFields()).to.deep.equal(expected);
     });
   });
 });
