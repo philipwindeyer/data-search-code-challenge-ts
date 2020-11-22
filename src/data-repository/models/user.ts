@@ -1,4 +1,4 @@
-interface UserProps {
+export interface User {
   _id: number;
   url: string;
   external_id: string;
@@ -20,9 +20,9 @@ interface UserProps {
   role: string;
 }
 
-export const getUser = (props: UserProps) => ({
+export const getUser = (props: User) => ({
   ...props,
   getOrganization: () => {},
   getTickets: () => {},
-  getSearchableFields: () => {},
+  getSearchableFields: () => Object.keys(props),
 });

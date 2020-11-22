@@ -1,4 +1,4 @@
-interface TicketProps {
+export interface Ticket {
   _id: string;
   url: string;
   external_id: string;
@@ -17,10 +17,10 @@ interface TicketProps {
   via: string;
 }
 
-export const getTicket = (props: TicketProps) => ({
+export const getTicket = (props: Ticket) => ({
   ...props,
   getSubmitter: () => {},
   getAssignee: () => {},
   getOrganization: () => {},
-  getSearchableFields: () => {},
+  getSearchableFields: () => Object.keys(props),
 });

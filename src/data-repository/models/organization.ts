@@ -1,4 +1,7 @@
-interface OrganizationProps {
+import { Ticket } from './ticket';
+import { User } from './user';
+
+export interface Organization {
   _id: number;
   url: string;
   external_id: string;
@@ -10,9 +13,9 @@ interface OrganizationProps {
   tags: string[];
 }
 
-export const getOrganization = (props: OrganizationProps) => ({
+export const getOrganization = (props: Organization, users: User[] = [], tickets: Ticket[] = []) => ({
   ...props,
-  getUsers: () => {},
-  getTickets: () => {},
-  getSearchableFields: () => {},
+  getUsers: () => users.filter((user) => user.organization_id === props._id),
+  getTickets: () => tickets.filter((ticket) => ticket.organization_id === props._id),
+  getSearchableFields: () => Object.keys(props),
 });
