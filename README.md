@@ -20,6 +20,7 @@ It specifically provides the ability to search for "organisations", "users" and 
 
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/) - the app is built on v15 but will run on older versions also (v12 and up)
+- [Yarn](https://yarnpkg.com/) - or NPM if you'd prefer to use that
 
 # Usage
 
@@ -27,7 +28,7 @@ It specifically provides the ability to search for "organisations", "users" and 
 
 <!-- usage -->
 
-```sh-session
+```sh
 $ npm install -g data-search
 $ data-search COMMAND
 running command...
@@ -44,5 +45,63 @@ USAGE
 # Commands
 
 <!-- commands -->
+
+## yarn
+
+`yarn` will pull all necessary node dependencies required for the app to run, and for tasks (AKA scripts) to execute successfully.
+
+It essentially bootstraps the app so it can be run. tested, linted, etc.
+
+## yarn test
+
+`yarn test` will execute the test suite.
+
+Ideally, a contributer should aim to achieve 100% test coverage with their tests.
+
+In this ideal scenario, the output will look something like this:
+
+```sh
+% yarn test
+yarn run v1.22.10
+$ nyc --extension .ts mocha --forbid-only "test/**/*.test.ts"
+
+
+  <suite-name>
+    #<test-group-name>
+      ✓ <test-name>
+
+  ...
+
+  <x> passing (285ms)
+
+----------------------------------|----------|----------|----------|----------|-------------------|
+File                              |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+----------------------------------|----------|----------|----------|----------|-------------------|
+All files                         |      100 |      100 |      100 |      100 |                   |
+ src                              |      100 |      100 |      100 |      100 |                   |
+  index.ts                        |      100 |      100 |      100 |      100 |                   |
+ src/data-repository              |      100 |      100 |      100 |      100 |                   |
+  data-repository.ts              |      100 |      100 |      100 |      100 |                   |
+  ...                             |      100 |      100 |      100 |      100 |                   |
+----------------------------------|----------|----------|----------|----------|-------------------|
+✨  Done in 6.18s.
+```
+
+## yarn lint
+
+`yarn lint` will execute the linter.
+
+Run `yarn lint --fix` to autocorrect anything that can easily be corrected.
+
+The linter in use, also uses `prettier` under the hood to apply styles (tab == 2 spaces, etc).
+
+Ideal output looks something like this:
+
+```sh
+% yarn lint
+yarn run v1.22.10
+$ eslint . --ext .ts --config .eslintrc
+✨  Done in 2.33s.
+```
 
 <!-- commandsstop -->

@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "author": "Philip Windeyer @philipwindeyer",
   "bin": {
-    "data-search": "./bin/run"
+    "data-search": "bin/run"
   },
   "bugs": "https://github.com/philipwindeyer/data-search-code-challenge-ts/issues",
   "dependencies": {
