@@ -45,7 +45,7 @@ describe('getUser', () => {
 
   describe('#getOrganization', () => {
     describe('when no organizations provided to collection', () => {
-      it('returns null', () => {
+      it('returns undefined', () => {
         expect(user.getOrganization()).to.be.undefined;
       });
     });
@@ -69,7 +69,7 @@ describe('getUser', () => {
         user = getUser(sample, organizations, []);
       });
 
-      it('returns an empty array', () => {
+      it('returns undefined', () => {
         expect(user.getOrganization()).to.be.undefined;
       });
     });

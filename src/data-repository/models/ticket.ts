@@ -1,3 +1,5 @@
+import { Organization, User } from '.';
+
 export interface Ticket {
   _id: string;
   url: string;
@@ -17,10 +19,10 @@ export interface Ticket {
   via: string;
 }
 
-export const getTicket = (props: Ticket) => ({
+export const getTicket = (props: Ticket, organizations: Organization[] = [], users: User[] = []) => ({
   ...props,
-  getSubmitter: () => {},
-  getAssignee: () => {},
-  getOrganization: () => {},
+  getSubmitter: () => users.find((user) => user._id === props.submitter_id),
+  getAssignee: () => users.find((user) => user._id === props.assignee_id),
+  getOrganization: () => organizations.find((organization) => organization._id === props.organization_id),
   getSearchableFields: () => Object.keys(props),
 });
