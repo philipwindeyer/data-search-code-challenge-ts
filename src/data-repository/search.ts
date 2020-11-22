@@ -3,8 +3,18 @@ import { Organization, Ticket, User } from './models';
 type SearchableData = Array<Organization | Ticket | User>;
 type SearchableObject = Organization | Ticket | User;
 
-export const search = (term: string, value: any, data: SearchableData) =>
-  data.filter((object: SearchableObject) => object[term as keyof SearchableObject] === value);
+const isEmpty = (match: any) => match === undefined || match === '';
+
+export const search = (term: string, value: string, data: SearchableData) =>
+  data.filter((object: SearchableObject) => {
+    const match = object[term as keyof SearchableObject];
+
+    if (value === '') {
+      return isEmpty(match);
+    }
+
+    return String(match) === value;
+  });
 
 export const getSearchableFields = (data: SearchableData) =>
   data.reduce<string[]>((keys, object) => {

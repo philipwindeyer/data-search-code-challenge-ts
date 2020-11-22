@@ -1,39 +1,49 @@
 import { expect } from 'chai';
-// import { Organization, Ticket, User } from '../../src/data-repository/models';
-
 import { organizations, tickets, users } from '../../src/data-repository/data-sources';
 import { search, getSearchableFields } from '../../src/data-repository/search';
+import { mockOrganization, usersWithEmptyValuesInVariousForms } from './samples';
 
 describe('#search', () => {
   describe('when search term is unrecognized', () => {
-    it('throws an "unrecognized term" error', () => {});
+    it('returns an empty array', () => {
+      expect(search('u', 'wot', [mockOrganization])).to.deep.equal([]);
+    });
   });
 
   describe('when search value does not match anything', () => {
-    it('returns an empty array', () => {});
+    it('returns an empty array', () => {
+      expect(search('timezone', 'Somewhere in the Pacific', users)).to.deep.equal([]);
+    });
   });
 
   describe('when search value is empty', () => {
-    it('returns objects that have a corresponding empty value', () => {});
+    describe('and it corresponds to an undefined key', () => {
+      it('returns objects that have a corresponding empty value', () => {
+        expect(search('email', '', usersWithEmptyValuesInVariousForms)).to.deep.equal([usersWithEmptyValuesInVariousForms[2]]);
+      });
+    });
 
-    describe('and when matching objects have related data', () => {
-      it('includes links to related data', () => {});
+    describe('and it corresponds to a key with an empty string value', () => {
+      it('returns objects that have a corresponding empty value', () => {
+        expect(search('alias', '', usersWithEmptyValuesInVariousForms)).to.deep.equal([usersWithEmptyValuesInVariousForms[0]]);
+      });
     });
   });
 
   describe('when search value one object', () => {
-    it('returns single matching object in an array', () => {});
-
-    describe('and when matching objects have related data', () => {
-      it('includes links to related data', () => {});
+    it('returns single matching object in an array', () => {
+      expect(search('timezone', 'Guinea-Bissau', usersWithEmptyValuesInVariousForms)).to.deep.equal([
+        usersWithEmptyValuesInVariousForms[0],
+      ]);
     });
   });
 
   describe('when search value multiple objects', () => {
-    it('returns matching objects in an array', () => {});
-
-    describe('and when matching objects have related data', () => {
-      it('includes links to related data', () => {});
+    it('returns matching objects in an array', () => {
+      expect(search('organization_id', '114', usersWithEmptyValuesInVariousForms)).to.deep.equal([
+        usersWithEmptyValuesInVariousForms[0],
+        usersWithEmptyValuesInVariousForms[2],
+      ]);
     });
   });
 });
