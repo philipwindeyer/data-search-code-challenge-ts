@@ -1,9 +1,9 @@
-import { Organization, Ticket, User } from './models';
+import { Organization, Ticket, User } from '../data-repository/models';
 
-type SearchableData = Array<Organization | Ticket | User>;
 type SearchableObject = Organization | Ticket | User;
-
 const isEmpty = (match: any) => match === undefined || match === '';
+
+export type SearchableData = Array<Organization | Ticket | User>;
 
 export const search = (term: string, value: string, data: SearchableData) =>
   data.filter((object: SearchableObject) => {
@@ -15,14 +15,3 @@ export const search = (term: string, value: string, data: SearchableData) =>
 
     return String(match) === value;
   });
-
-export const getSearchableFields = (data: SearchableData) =>
-  data.reduce<string[]>((keys, object) => {
-    Object.keys(object).forEach((key) => {
-      if (!keys.includes(key)) {
-        keys.push(key);
-      }
-    });
-
-    return keys;
-  }, []);
