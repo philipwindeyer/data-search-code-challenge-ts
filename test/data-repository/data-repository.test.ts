@@ -1,7 +1,10 @@
-import { expect } from 'chai';
+import { use, expect } from 'chai';
 import { getData } from '../../src/data-repository';
+import { organizations, tickets, users } from '../../src/data-repository/data-sources';
 
-describe('dataRepository', () => {
+use(require('chai-like'));
+
+describe('data-repository', () => {
   describe('#getData', () => {
     let result: ReturnType<typeof getData>;
 
@@ -9,10 +12,16 @@ describe('dataRepository', () => {
       result = getData();
     });
 
-    it('build data collections from json data files', () => {
-      expect(result.organizations).to.be.an('array');
-      expect(result.tickets).to.be.an('array');
-      expect(result.users).to.be.an('array');
+    it('contains wrapped organizations', () => {
+      expect(result.organizations).to.be.like(organizations);
+    });
+
+    it('contains wrapped tickets', () => {
+      expect(result.tickets).to.be.like(tickets);
+    });
+
+    it('contains wrapped users', () => {
+      expect(result.users).to.be.like(users);
     });
   });
 });
