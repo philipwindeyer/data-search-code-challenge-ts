@@ -61,10 +61,10 @@ const getSearchValue = async (prompt: Function) => {
 const printResults = (results: DataCollection, log: Function) => {
   if (results.length > 0) {
     results.forEach((result) => {
-      log(result.formatForDisplay());
+      log(`${result.formatForDisplay()}\n`);
     });
   } else {
-    log('No results found');
+    log('No results found\n');
   }
 };
 

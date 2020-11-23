@@ -1,4 +1,8 @@
-# data-search (AKA data-search-code-challenge-ts)
+# data-search
+
+### (AKA data-search-code-challenge-ts)
+
+[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 
 A small command-line app written in TypeScript, to search structured data provided in JSON files (as part of a code challenge).  
 The aim of this code base is to satisfy the requirements of a code challenge.
@@ -7,52 +11,33 @@ The code challenge solution in question has also been written in Ruby [here](htt
 
 It specifically provides the ability to search for "organisations", "users" and "tickets" (provided via JSON files), and will display accompanying related data.
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![License](https://img.shields.io/npm/l/data-search.svg)](https://github.com/philipwindeyer/data-search-code-challenge-ts/blob/master/package.json)
-
-<!-- toc -->
-
-- [Usage](#usage)
-- [Commands](#commands)
-<!-- tocstop -->
-
 ## Prerequisites
 
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en/) - the app is built on v15 but will run on older versions also (v12 and up)
 - [Yarn](https://yarnpkg.com/) - or NPM if you'd prefer to use that
 
-# Usage
+## Installation
 
-<!-- TODO: update this to reflect local usage only -->
+- Clone this repo: `git clone https://github.com/philipwindeyer/data-search-code-challenge-ts.git`
+- `cd data-search-code-challenge-ts`
+- `yarn` (or `npm install` if using npm)
 
-<!-- usage -->
+## Usage
 
-```sh
-$ npm install -g data-search
-$ data-search COMMAND
-running command...
-$ data-search (-v|--version|version)
-data-search/0.0.1 darwin-x64 node-v15.0.1
-$ data-search --help [COMMAND]
-USAGE
-  $ data-search COMMAND
-...
-```
+- `bin/run` to start the app
 
-<!-- usagestop -->
+- Double-click (or execute from cmd-prompt) `bin/run.cmd` if on Windows
 
-# Commands
+## Commands
 
-<!-- commands -->
-
-## yarn
+### yarn
 
 `yarn` will pull all necessary node dependencies required for the app to run, and for tasks (AKA scripts) to execute successfully.
 
 It essentially bootstraps the app so it can be run. tested, linted, etc.
 
-## yarn test
+### yarn test
 
 `yarn test` will execute the test suite.
 
@@ -87,7 +72,7 @@ All files                         |      100 |      100 |      100 |      100 | 
 ✨  Done in 6.18s.
 ```
 
-## yarn lint
+### yarn lint
 
 `yarn lint` will execute the linter.
 
@@ -104,4 +89,14 @@ $ eslint . --ext .ts --config .eslintrc
 ✨  Done in 2.33s.
 ```
 
-<!-- commandsstop -->
+## Development
+
+The app is built using [oclif](https://oclif.io/) for command-line input. See index.ts for the entry point.
+
+Testing is achieved using [Mocha](https://mochajs.org/), [Chai](https://www.chaijs.com/), and [Sinon.JS](https://sinonjs.org/).
+
+Code should be written in TypeScript, and each ts file should have a corresponding test suite in `test/`.
+
+## License
+
+This is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
