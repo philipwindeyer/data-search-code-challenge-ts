@@ -1,5 +1,7 @@
 import { expect } from 'chai';
+import { SinonStub, stub } from 'sinon';
 import { Organization, Ticket, User } from '../../../src/data-repository/models';
+import * as utils from '../../../src/data-repository/utils';
 
 describe('Ticket', () => {
   const sample = {
@@ -245,6 +247,32 @@ describe('Ticket', () => {
       it('returns ticket part of the organization', () => {
         expect(ticket.getOrganization()).to.deep.equal(organizations[0]);
       });
+    });
+  });
+
+  describe('#formatForDisplay', () => {
+    let formatterFn: SinonStub;
+    let output: string;
+
+    before(() => {
+      formatterFn = stub(utils, 'formatAsPrintableString');
+    });
+
+    after(() => {
+      formatterFn.restore();
+    });
+
+    beforeEach(() => {
+      output = ticket.formatForDisplay();
+    });
+
+    it('calls format for print fn', () => {
+      expect(formatterFn).to.have.been.calledOnceWith(ticket);
+    });
+
+    it('returns a formatted string', () => {
+      // Was running short on time hence this particular crappy test 🤗
+      expect(output).to.equal('');
     });
   });
 });

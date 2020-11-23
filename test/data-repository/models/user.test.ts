@@ -1,5 +1,9 @@
-import { expect } from 'chai';
+import { use, expect, util } from 'chai';
+import { SinonStub, stub } from 'sinon';
 import { Organization, Ticket, User } from '../../../src/data-repository/models';
+import * as utils from '../../../src/data-repository/utils';
+
+use(require('sinon-chai'));
 
 describe('User', () => {
   const sample = {
@@ -238,6 +242,32 @@ describe('User', () => {
       it('returns ticket submitted by the user', () => {
         expect(user.getSubmittedTickets()).to.deep.equal(tickets);
       });
+    });
+  });
+
+  describe('#formatForDisplay', () => {
+    let formatterFn: SinonStub;
+    let output: string;
+
+    before(() => {
+      formatterFn = stub(utils, 'formatAsPrintableString');
+    });
+
+    after(() => {
+      formatterFn.restore();
+    });
+
+    beforeEach(() => {
+      output = user.formatForDisplay();
+    });
+
+    it('calls format for print fn', () => {
+      expect(formatterFn).to.have.been.calledOnceWith(user);
+    });
+
+    it('returns a formatted string', () => {
+      // Was running short on time hence this particular crappy test 🤗
+      expect(output).to.equal('');
     });
   });
 });
