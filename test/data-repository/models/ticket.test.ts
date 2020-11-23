@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { wrapTicket } from '../../../src/data-repository/models';
+import { WrappedTicket, wrapTicket } from '../../../src/data-repository/models';
 
 describe('wrapTicket', () => {
   const sample = {
@@ -22,7 +22,7 @@ describe('wrapTicket', () => {
     via: 'voice',
   };
 
-  let ticket: ReturnType<typeof wrapTicket>;
+  let ticket: WrappedTicket;
 
   beforeEach(() => {
     ticket = wrapTicket(sample);

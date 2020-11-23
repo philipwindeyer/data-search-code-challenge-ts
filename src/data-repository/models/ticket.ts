@@ -19,6 +19,12 @@ export interface Ticket {
   via: string;
 }
 
+export interface WrappedTicket extends Ticket {
+  getSubmitter: Function;
+  getAssignee: Function;
+  getOrganization: Function;
+}
+
 export const wrapTicket = (props: Ticket, organizations: Organization[] = [], users: User[] = []) => ({
   ...props,
   getSubmitter: () => users.find((user) => user._id === props.submitter_id),

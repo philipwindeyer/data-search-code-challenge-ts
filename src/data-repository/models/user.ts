@@ -22,6 +22,12 @@ export interface User {
   role: string;
 }
 
+export interface WrappedUser extends User {
+  getOrganization: Function;
+  getAssignedTickets: Function;
+  getSubmittedTickets: Function;
+}
+
 export const wrapUser = (props: User, organizations: Organization[] = [], tickets: Ticket[] = []) => ({
   ...props,
   getOrganization: () => organizations.find((organization) => organization._id === props.organization_id),

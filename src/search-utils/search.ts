@@ -3,9 +3,9 @@ import { Organization, Ticket, User } from '../data-repository/models';
 type SearchableObject = Organization | Ticket | User;
 const isEmpty = (match: any) => match === undefined || match === '';
 
-export type SearchableData = Array<Organization | Ticket | User>;
+export type DataCollection = Array<Organization | Ticket | User>;
 
-export const search = (term: string, value: string, data: SearchableData) =>
+export const search = (term: string, value: string, data: DataCollection) =>
   data.filter((object: SearchableObject) => {
     const match = object[term as keyof SearchableObject];
 

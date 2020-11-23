@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { wrapOrganization } from '../../../src/data-repository/models';
+import { wrapOrganization, WrappedOrganization } from '../../../src/data-repository/models';
 
 describe('wrapOrganization', () => {
   const sample = {
@@ -14,7 +14,7 @@ describe('wrapOrganization', () => {
     tags: ['Vance', 'Ray', 'Jacobs', 'Frank'],
   };
 
-  let organization: ReturnType<typeof wrapOrganization>;
+  let organization: WrappedOrganization;
 
   beforeEach(() => {
     organization = wrapOrganization(sample);

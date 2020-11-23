@@ -12,6 +12,11 @@ export interface Organization {
   tags: string[];
 }
 
+export interface WrappedOrganization extends Organization {
+  getUsers: Function;
+  getTickets: Function;
+}
+
 export const wrapOrganization = (props: Organization, users: User[] = [], tickets: Ticket[] = []) => ({
   ...props,
   getUsers: () => users.filter((user) => user.organization_id === props._id),

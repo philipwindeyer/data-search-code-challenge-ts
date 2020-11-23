@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { wrapUser } from '../../../src/data-repository/models';
+import { WrappedUser, wrapUser } from '../../../src/data-repository/models';
 
 describe('wrapUser', () => {
   const sample = {
@@ -24,7 +24,7 @@ describe('wrapUser', () => {
     role: 'agent',
   };
 
-  let user: ReturnType<typeof wrapUser>;
+  let user: WrappedUser;
 
   beforeEach(() => {
     user = wrapUser(sample);
