@@ -1,5 +1,3 @@
-import { WrappedOrganization, WrappedTicket, WrappedUser } from '../data-repository/models';
-import { formatOrganization } from '../formatters';
 import { getSearchableFields, search, DataCollection } from '../search-utils';
 import { PrintSearchableFieldsArgs, Data } from './types';
 import { capitalize } from './utils';

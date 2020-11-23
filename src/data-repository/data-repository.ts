@@ -1,12 +1,25 @@
-import { wrapOrganization, wrapTicket, wrapUser } from './models';
-import { organizations, tickets, users } from './data-sources';
+import { Organization, Ticket, User } from './models';
+import { organizations as organizationData, tickets as ticketData, users as userData } from './data-sources';
 
-const getOrganizations = () => organizations.map((organization) => wrapOrganization(organization, users, tickets));
-const getTickets = () => tickets.map((ticket) => wrapTicket(ticket, organizations, users));
-const getUsers = () => users.map((user) => wrapUser(user, organizations, tickets));
+export const getData = () => {
+  const organizations = organizationData.map((organization) => new Organization(organization));
+  const tickets = ticketData.map((ticket) => new Ticket(ticket));
+  const users = userData.map((user) => new User(user));
 
-export const getData = () => ({
-  organizations: getOrganizations(),
-  tickets: getTickets(),
-  users: getUsers(),
-});
+  organizations.map((organization) => {
+    organization.setUsers(users);
+    organization.setTickets(tickets);
+  });
+
+  tickets.map((ticket) => {
+    ticket.setOrganizations(organizations);
+    ticket.setUsers(users);
+  });
+
+  users.map((user) => {
+    user.setOrganizations(organizations);
+    user.setTickets(tickets);
+  });
+
+  return { organizations, tickets, users };
+};

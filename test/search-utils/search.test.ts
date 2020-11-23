@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { users } from '../../src/data-repository/data-sources';
 import { search } from '../../src/search-utils';
 import { mockOrganization, usersWithEmptyValuesInVariousForms } from './samples';
 
@@ -12,7 +11,7 @@ describe('#search', () => {
 
   describe('when search value does not match anything', () => {
     it('returns an empty array', () => {
-      expect(search('timezone', 'Somewhere in the Pacific', users)).to.deep.equal([]);
+      expect(search('timezone', 'Somewhere in the Pacific', usersWithEmptyValuesInVariousForms)).to.deep.equal([]);
     });
   });
 

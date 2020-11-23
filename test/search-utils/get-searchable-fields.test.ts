@@ -1,8 +1,21 @@
 import { expect } from 'chai';
-import { organizations, tickets, users } from '../../src/data-repository/data-sources';
+import { getData } from '../../src/data-repository';
+import { Organization, Ticket, User } from '../../src/data-repository/models';
 import { getSearchableFields } from '../../src/search-utils';
 
 describe('#getSearchableFields', () => {
+  let organizations: Organization[];
+  let tickets: Ticket[];
+  let users: User[];
+
+  beforeEach(() => {
+    const data = getData();
+
+    organizations = data.organizations;
+    tickets = data.tickets;
+    users = data.users;
+  });
+
   describe('when data is made up of organizations', () => {
     it('returns an array of "searchable fields"', () => {
       const expected = ['_id', 'url', 'external_id', 'name', 'domain_names', 'created_at', 'details', 'shared_tickets', 'tags'];

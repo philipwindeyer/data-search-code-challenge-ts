@@ -1,4 +1,6 @@
-export const mockOrganization = {
+import { Organization, User } from '../../src/data-repository/models';
+
+export const mockOrganization = new Organization({
   _id: 1,
   url: '',
   external_id: '',
@@ -8,10 +10,10 @@ export const mockOrganization = {
   details: '',
   shared_tickets: false,
   tags: [''],
-};
+});
 
 export const usersWithEmptyValuesInVariousForms = [
-  {
+  new User({
     _id: 72,
     url: 'http://initech.zendesk.com/api/v2/users/72.json',
     external_id: 'e906b32a-1661-4ac3-b7a6-767291d440de',
@@ -31,8 +33,8 @@ export const usersWithEmptyValuesInVariousForms = [
     tags: ['Orviston', 'Blanford', 'Wattsville', 'Levant'],
     suspended: true,
     role: 'end-user',
-  },
-  {
+  }),
+  new User({
     _id: 73,
     url: 'http://initech.zendesk.com/api/v2/users/73.json',
     external_id: 'a8b6c657-d47e-45b2-9c47-cf13b1b02f24',
@@ -52,8 +54,8 @@ export const usersWithEmptyValuesInVariousForms = [
     tags: ['Golconda', 'Gambrills', 'Itmann', 'Lund'],
     suspended: true,
     role: 'end-user',
-  },
-  {
+  }),
+  new User({
     _id: 74,
     url: 'http://initech.zendesk.com/api/v2/users/74.json',
     external_id: '8fa4f74b-e690-4478-bf09-40fed1ebc417',
@@ -73,5 +75,5 @@ export const usersWithEmptyValuesInVariousForms = [
     tags: ['Shrewsbury', 'Ryderwood', 'Edmund', 'Kersey'],
     suspended: false,
     role: 'admin',
-  },
+  }),
 ];

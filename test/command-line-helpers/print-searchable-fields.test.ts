@@ -1,11 +1,12 @@
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import { printSearchableFields } from '../../src/command-line-helpers';
+import { Organization } from '../../src/data-repository/models';
 
 describe('printSearchableFields', () => {
   const sample = {
     organizations: [
-      {
+      new Organization({
         _id: 101,
         url: 'http://initech.zendesk.com/api/v2/organizations/101.json',
         external_id: '9270ed79-35eb-4a38-a46f-35725197ea8d',
@@ -15,7 +16,7 @@ describe('printSearchableFields', () => {
         details: 'MegaCorp',
         shared_tickets: false,
         tags: ['uwotm8', 'nahyeahnah'],
-      },
+      }),
     ],
     tickets: [],
     users: [],

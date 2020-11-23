@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { WrappedUser, wrapUser } from '../../../src/data-repository/models';
+import { Organization, Ticket, User } from '../../../src/data-repository/models';
 
-describe('wrapUser', () => {
+describe('User', () => {
   const sample = {
     _id: 34,
     url: 'http://initech.zendesk.com/api/v2/users/34.json',
@@ -24,10 +24,10 @@ describe('wrapUser', () => {
     role: 'agent',
   };
 
-  let user: WrappedUser;
+  let user: User;
 
   beforeEach(() => {
-    user = wrapUser(sample);
+    user = new User(sample);
   });
 
   describe('#new', () => {
@@ -51,7 +51,7 @@ describe('wrapUser', () => {
 
     describe('when user is not part of the organizations listed', () => {
       const organizations = [
-        {
+        new Organization({
           _id: 102,
           url: 'http://initech.zendesk.com/api/v2/organizations/102.json',
           external_id: '7cd6b8d4-2999-4ff2-8cfd-44d05b449226',
@@ -61,11 +61,11 @@ describe('wrapUser', () => {
           details: 'Non profit',
           shared_tickets: false,
           tags: ['Cherry', 'Collier', 'Fuentes', 'Trevino'],
-        },
+        }),
       ];
 
       beforeEach(() => {
-        user = wrapUser(sample, organizations, []);
+        user.setOrganizations(organizations);
       });
 
       it('returns undefined', () => {
@@ -75,7 +75,7 @@ describe('wrapUser', () => {
 
     describe('when user is part of an organization', () => {
       const organizations = [
-        {
+        new Organization({
           _id: 111,
           url: 'http://initech.zendesk.com/api/v2/organizations/111.json',
           external_id: '852e22ab-76dc-4d92-9a1d-02d3e04349cb',
@@ -85,11 +85,11 @@ describe('wrapUser', () => {
           details: 'Artisan',
           shared_tickets: true,
           tags: ['Sheppard', 'Nunez', 'Bartlett', 'Giles'],
-        },
+        }),
       ];
 
       beforeEach(() => {
-        user = wrapUser(sample, organizations, []);
+        user.setOrganizations(organizations);
       });
 
       it('returns user part of the organization', () => {
@@ -107,7 +107,7 @@ describe('wrapUser', () => {
 
     describe('when no tickets are assigned to the user', () => {
       const tickets = [
-        {
+        new Ticket({
           _id: '436bf9b0-1147-4c0a-8439-6f79833bff5b',
           url: 'http://initech.zendesk.com/api/v2/tickets/436bf9b0-1147-4c0a-8439-6f79833bff5b.json',
           external_id: '9210cdc9-4bee-485f-a078-35396cd74063',
@@ -125,11 +125,11 @@ describe('wrapUser', () => {
           has_incidents: false,
           due_at: '2016-07-31T02:37:50 -10:00',
           via: 'web',
-        },
+        }),
       ];
 
       beforeEach(() => {
-        user = wrapUser(sample, [], tickets);
+        user.setTickets(tickets);
       });
 
       it('returns an empty array', () => {
@@ -139,7 +139,7 @@ describe('wrapUser', () => {
 
     describe('when a ticket is assigned to the user', () => {
       const tickets = [
-        {
+        new Ticket({
           _id: 'c73a0be5-e967-4948-b0a4-eff98d1a43ad',
           url: 'http://initech.zendesk.com/api/v2/tickets/c73a0be5-e967-4948-b0a4-eff98d1a43ad.json',
           external_id: '97e1ea8e-356c-48ea-9ad6-dc4c9f1843da',
@@ -156,11 +156,11 @@ describe('wrapUser', () => {
           has_incidents: false,
           due_at: '2016-08-16T11:12:43 -10:00',
           via: 'web',
-        },
+        }),
       ];
 
       beforeEach(() => {
-        user = wrapUser(sample, [], tickets);
+        user.setTickets(tickets);
       });
 
       it('returns ticket assigned to the user', () => {
@@ -178,7 +178,7 @@ describe('wrapUser', () => {
 
     describe('when no tickets have been submitted by the user', () => {
       const tickets = [
-        {
+        new Ticket({
           _id: 'c08537d2-116d-45ff-a6d0-60c1a7d4778f',
           url: 'http://initech.zendesk.com/api/v2/tickets/c08537d2-116d-45ff-a6d0-60c1a7d4778f.json',
           external_id: '0f534118-467e-438f-9cfd-fad0fe4a0b1e',
@@ -196,11 +196,11 @@ describe('wrapUser', () => {
           has_incidents: true,
           due_at: '2016-08-06T07:35:44 -10:00',
           via: 'chat',
-        },
+        }),
       ];
 
       beforeEach(() => {
-        user = wrapUser(sample, [], tickets);
+        user.setTickets(tickets);
       });
 
       it('returns an empty array', () => {
@@ -210,7 +210,7 @@ describe('wrapUser', () => {
 
     describe('when a ticket has been submitted by the user', () => {
       const tickets = [
-        {
+        new Ticket({
           _id: 'b539a7db-1166-4537-9a5e-d2a97dd432bd',
           url: 'http://initech.zendesk.com/api/v2/tickets/b539a7db-1166-4537-9a5e-d2a97dd432bd.json',
           external_id: '5150a02f-0aca-4db3-a1f7-91998df71794',
@@ -228,11 +228,11 @@ describe('wrapUser', () => {
           has_incidents: true,
           due_at: '2016-07-30T02:22:24 -10:00',
           via: 'chat',
-        },
+        }),
       ];
 
       beforeEach(() => {
-        user = wrapUser(sample, [], tickets);
+        user.setTickets(tickets);
       });
 
       it('returns ticket submitted by the user', () => {

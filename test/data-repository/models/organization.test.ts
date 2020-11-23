@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { wrapOrganization, WrappedOrganization } from '../../../src/data-repository/models';
+import { Organization, Ticket, User } from '../../../src/data-repository/models';
 
-describe('wrapOrganization', () => {
+describe('Organization', () => {
   const sample = {
     _id: 125,
     url: 'http://initech.zendesk.com/api/v2/organizations/125.json',
@@ -14,10 +14,10 @@ describe('wrapOrganization', () => {
     tags: ['Vance', 'Ray', 'Jacobs', 'Frank'],
   };
 
-  let organization: WrappedOrganization;
+  let organization: Organization;
 
   beforeEach(() => {
-    organization = wrapOrganization(sample);
+    organization = new Organization(sample);
   });
 
   describe('#new', () => {
@@ -40,7 +40,7 @@ describe('wrapOrganization', () => {
 
     describe('when no users are part of the organization', () => {
       const users = [
-        {
+        new User({
           _id: 1,
           url: 'http://initech.zendesk.com/api/v2/users/1.json',
           external_id: '74341f74-9c79-49d5-9611-87ef9b6eb75f',
@@ -60,11 +60,11 @@ describe('wrapOrganization', () => {
           tags: ['Springville', 'Sutton', 'Hartsville/Hartley', 'Diaperville'],
           suspended: true,
           role: 'admin',
-        },
+        }),
       ];
 
       beforeEach(() => {
-        organization = wrapOrganization(sample, users, []);
+        organization.setUsers(users);
       });
 
       it('returns an empty array', () => {
@@ -74,7 +74,7 @@ describe('wrapOrganization', () => {
 
     describe('when a user is part of the organization', () => {
       const users = [
-        {
+        new User({
           _id: 8,
           url: 'http://initech.zendesk.com/api/v2/users/8.json',
           external_id: 'fa13ffa4-0ba1-41d1-be4a-c1e7a92f25e4',
@@ -94,11 +94,11 @@ describe('wrapOrganization', () => {
           tags: ['Greenbush', 'Canby', 'Bedias', 'Boyd'],
           suspended: true,
           role: 'agent',
-        },
+        }),
       ];
 
       beforeEach(() => {
-        organization = wrapOrganization(sample, users, []);
+        organization.setUsers(users);
       });
 
       it('returns user part of the organization', () => {
@@ -116,7 +116,7 @@ describe('wrapOrganization', () => {
 
     describe('when no tickets are assigned to the organization', () => {
       const tickets = [
-        {
+        new Ticket({
           _id: '436bf9b0-1147-4c0a-8439-6f79833bff5b',
           url: 'http://initech.zendesk.com/api/v2/tickets/436bf9b0-1147-4c0a-8439-6f79833bff5b.json',
           external_id: '9210cdc9-4bee-485f-a078-35396cd74063',
@@ -134,11 +134,11 @@ describe('wrapOrganization', () => {
           has_incidents: false,
           due_at: '2016-07-31T02:37:50 -10:00',
           via: 'web',
-        },
+        }),
       ];
 
       beforeEach(() => {
-        organization = wrapOrganization(sample, [], tickets);
+        organization.setTickets(tickets);
       });
 
       it('returns an empty array', () => {
@@ -148,7 +148,7 @@ describe('wrapOrganization', () => {
 
     describe('when a ticket is assigned to the organization', () => {
       const tickets = [
-        {
+        new Ticket({
           _id: '25d9edca-7756-4d28-8fdd-f16f1532f6ab',
           url: 'http://initech.zendesk.com/api/v2/tickets/25d9edca-7756-4d28-8fdd-f16f1532f6ab.json',
           external_id: 'c6782106-7623-4952-b4b1-8663f7b5e9dc',
@@ -166,11 +166,11 @@ describe('wrapOrganization', () => {
           has_incidents: true,
           due_at: '2016-08-17T07:54:27 -10:00',
           via: 'web',
-        },
+        }),
       ];
 
       beforeEach(() => {
-        organization = wrapOrganization(sample, [], tickets);
+        organization.setTickets(tickets);
       });
 
       it('returns ticket assigned to the organization', () => {

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { WrappedTicket, wrapTicket } from '../../../src/data-repository/models';
+import { Organization, Ticket, User } from '../../../src/data-repository/models';
 
-describe('wrapTicket', () => {
+describe('Ticket', () => {
   const sample = {
     _id: '674a19a1-c330-45fb-8b61-b4d77ba87130',
     url: 'http://initech.zendesk.com/api/v2/tickets/674a19a1-c330-45fb-8b61-b4d77ba87130.json',
@@ -22,10 +22,10 @@ describe('wrapTicket', () => {
     via: 'voice',
   };
 
-  let ticket: WrappedTicket;
+  let ticket: Ticket;
 
   beforeEach(() => {
-    ticket = wrapTicket(sample);
+    ticket = new Ticket(sample);
   });
 
   describe('#new', () => {
@@ -49,7 +49,7 @@ describe('wrapTicket', () => {
 
     describe('when ticket has not been submitted to any of the users listed', () => {
       const users = [
-        {
+        new User({
           _id: 2,
           url: 'http://initech.zendesk.com/api/v2/users/2.json',
           external_id: 'c9995ea4-ff72-46e0-ab77-dfe0ae1ef6c2',
@@ -69,11 +69,11 @@ describe('wrapTicket', () => {
           tags: ['Foxworth', 'Woodlands', 'Herlong', 'Henrietta'],
           suspended: false,
           role: 'admin',
-        },
+        }),
       ];
 
       beforeEach(() => {
-        ticket = wrapTicket(sample, [], users);
+        ticket.setUsers(users);
       });
 
       it('returns undefined', () => {
@@ -83,7 +83,7 @@ describe('wrapTicket', () => {
 
     describe('when ticket was submitted by a user listed', () => {
       const users = [
-        {
+        new User({
           _id: 49,
           url: 'http://initech.zendesk.com/api/v2/users/49.json',
           external_id: '4bd5e757-c0cd-445b-b702-ee3ed794f6c4',
@@ -103,11 +103,11 @@ describe('wrapTicket', () => {
           tags: ['Hanover', 'Woodlake', 'Saticoy', 'Hinsdale'],
           suspended: true,
           role: 'end-user',
-        },
+        }),
       ];
 
       beforeEach(() => {
-        ticket = wrapTicket(sample, [], users);
+        ticket.setUsers(users);
       });
 
       it('returns user that submitted the ticket', () => {
@@ -125,7 +125,7 @@ describe('wrapTicket', () => {
 
     describe('when ticket has not been assigned to any of the users listed', () => {
       const users = [
-        {
+        new User({
           _id: 51,
           url: 'http://initech.zendesk.com/api/v2/users/51.json',
           external_id: '4a4adf11-a0e8-461d-b310-0e52a052dc73',
@@ -145,11 +145,11 @@ describe('wrapTicket', () => {
           tags: ['Chumuckla', 'Dixie', 'Yardville', 'Riverton'],
           suspended: true,
           role: 'end-user',
-        },
+        }),
       ];
 
       beforeEach(() => {
-        ticket = wrapTicket(sample, [], users);
+        ticket.setUsers(users);
       });
 
       it('returns undefined', () => {
@@ -159,7 +159,7 @@ describe('wrapTicket', () => {
 
     describe('when ticket is assigned to a user listed', () => {
       const users = [
-        {
+        new User({
           _id: 14,
           url: 'http://initech.zendesk.com/api/v2/users/14.json',
           external_id: 'feacbd09-4aed-4c45-b9e0-af3898277cb3',
@@ -179,11 +179,11 @@ describe('wrapTicket', () => {
           tags: ['Springhill', 'Staples', 'Trail', 'Newry'],
           suspended: true,
           role: 'admin',
-        },
+        }),
       ];
 
       beforeEach(() => {
-        ticket = wrapTicket(sample, [], users);
+        ticket.setUsers(users);
       });
 
       it('returns user the ticket is assigned to', () => {
@@ -201,7 +201,7 @@ describe('wrapTicket', () => {
 
     describe('when ticket is not assigned to any of the organizations listed', () => {
       const organizations = [
-        {
+        new Organization({
           _id: 102,
           url: 'http://initech.zendesk.com/api/v2/organizations/102.json',
           external_id: '7cd6b8d4-2999-4ff2-8cfd-44d05b449226',
@@ -211,11 +211,11 @@ describe('wrapTicket', () => {
           details: 'Non profit',
           shared_tickets: false,
           tags: ['Cherry', 'Collier', 'Fuentes', 'Trevino'],
-        },
+        }),
       ];
 
       beforeEach(() => {
-        ticket = wrapTicket(sample, organizations, []);
+        ticket.setOrganizations(organizations);
       });
 
       it('returns undefined', () => {
@@ -225,7 +225,7 @@ describe('wrapTicket', () => {
 
     describe('when ticket is assigned to an organization listed', () => {
       const organizations = [
-        {
+        new Organization({
           _id: 109,
           url: 'http://initech.zendesk.com/api/v2/organizations/109.json',
           external_id: '5f930931-37fd-41a2-9c68-1cd5b99e7a3e',
@@ -235,11 +235,11 @@ describe('wrapTicket', () => {
           details: 'MegaCorp',
           shared_tickets: false,
           tags: ['Price', 'Meyer', 'Heath', 'Skinner'],
-        },
+        }),
       ];
 
       beforeEach(() => {
-        ticket = wrapTicket(sample, organizations, []);
+        ticket.setOrganizations(organizations);
       });
 
       it('returns ticket part of the organization', () => {
