@@ -23,49 +23,31 @@ interface UserProps {
 }
 
 export class User {
-  _id: number;
-  url: string;
-  external_id: string;
-  name: string;
+  _id!: number;
+  url!: string;
+  external_id!: string;
+  name!: string;
   alias?: string;
-  created_at: string;
-  active: boolean;
+  created_at!: string;
+  active!: boolean;
   verified?: boolean;
-  shared: boolean;
+  shared!: boolean;
   locale?: string;
   timezone?: string;
-  last_login_at: string;
+  last_login_at!: string;
   email?: string;
-  phone: string;
-  signature: string;
+  phone!: string;
+  signature!: string;
   organization_id?: number;
-  tags: string[];
-  suspended: boolean;
-  role: string;
+  tags!: string[];
+  suspended!: boolean;
+  role!: string;
 
   #organizations: Organization[] = [];
   #tickets: Ticket[] = [];
 
   constructor(props: UserProps) {
-    this._id = props._id;
-    this.url = props.url;
-    this.external_id = props.external_id;
-    this.name = props.name;
-    this.alias = props.alias;
-    this.created_at = props.created_at;
-    this.active = props.active;
-    this.verified = props.verified;
-    this.shared = props.shared;
-    this.locale = props.locale;
-    this.timezone = props.timezone;
-    this.last_login_at = props.last_login_at;
-    this.email = props.email;
-    this.phone = props.phone;
-    this.signature = props.signature;
-    this.organization_id = props.organization_id;
-    this.tags = props.tags;
-    this.suspended = props.suspended;
-    this.role = props.role;
+    Object.assign(this, props);
   }
 
   setOrganizations(organizations: Organization[]) {
