@@ -1,4 +1,5 @@
 import { Organization, Ticket } from '.';
+import { formatAsPrintableString } from '../utils/format-as-printable-string';
 
 interface UserProps {
   _id: number;
@@ -71,51 +72,31 @@ export class User {
   }
 
   formatForDisplay() {
-    const decoratedProps = [
-      `_id:             ${this._id}`,
-      `url:             ${this.url}`,
-      `external_id:     ${this.external_id}`,
-      `name:            ${this.name}`,
-      `alias:           ${this.alias}`,
-      `created_at:      ${this.created_at}`,
-      `active:          ${this.active}`,
-      `verified:        ${this.verified}`,
-      `shared:          ${this.shared}`,
-      `locale:          ${this.locale}`,
-      `timezone:        ${this.timezone}`,
-      `last_login_at:   ${this.last_login_at}`,
-      `email:           ${this.email}`,
-      `phone:           ${this.phone}`,
-      `signature:       ${this.signature}`,
-      `organization_id: ${this.organization_id}`,
-      `tags:            ${this.tags}`,
-      `suspended:       ${this.suspended}`,
-      `role:            ${this.role}`,
-    ];
+    const decoratedProps = [formatAsPrintableString(this)];
 
     const organization = this.getOrganization();
 
     if (organization) {
-      decoratedProps.push(`Works at: ${organization.name} (ID: ${organization._id})`);
+      decoratedProps.push(`\n  Works at: ${organization.name} (ID: ${organization._id})`);
     }
 
     const assigned = this.getAssignedTickets();
 
     if (assigned.length > 0) {
-      decoratedProps.push('Assigned tickets:');
+      decoratedProps.push('\n  Assigned tickets:');
 
       assigned.forEach((ticket) => {
-        decoratedProps.push(`  ${ticket.subject} (ID: ${ticket._id})`);
+        decoratedProps.push(`    - ${ticket.subject} (ID: ${ticket._id})`);
       });
     }
 
     const submitted = this.getSubmittedTickets();
 
     if (submitted.length > 0) {
-      decoratedProps.push('Tickets submitted/raised:');
+      decoratedProps.push('\n  Tickets submitted/raised:');
 
       submitted.forEach((ticket) => {
-        decoratedProps.push(`  ${ticket.subject} (ID: ${ticket._id})`);
+        decoratedProps.push(`    - ${ticket.subject} (ID: ${ticket._id})`);
       });
     }
 

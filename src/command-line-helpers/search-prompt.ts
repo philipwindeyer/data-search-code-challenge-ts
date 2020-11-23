@@ -1,4 +1,5 @@
-import { getSearchableFields, search, DataCollection } from '../search-utils';
+import { DataCollection } from '../data-repository';
+import { getSearchableFields, search } from '../search-utils';
 import { PrintSearchableFieldsArgs, Data } from './types';
 import { capitalize } from './utils';
 

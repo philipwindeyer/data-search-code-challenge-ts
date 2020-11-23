@@ -1,4 +1,5 @@
 import { User, Ticket } from '.';
+import { formatAsPrintableString } from '../utils/format-as-printable-string';
 
 interface OrganizationProps {
   _id: number;
@@ -47,35 +48,25 @@ export class Organization {
   }
 
   formatForDisplay() {
-    const decoratedProps = [
-      `_id:            ${this._id}`,
-      `url:            ${this.url}`,
-      `external_id:    ${this.external_id}`,
-      `name:           ${this.name}`,
-      `domain_names :  ${this.domain_names}`,
-      `created_at:     ${this.created_at}`,
-      `details:        ${this.details}`,
-      `shared_tickets: ${this.shared_tickets}`,
-      `tags:           ${this.tags}`,
-    ];
+    const decoratedProps = [formatAsPrintableString(this)];
 
     const users = this.getUsers();
 
     if (users.length > 0) {
-      decoratedProps.push('Users part of organization:');
+      decoratedProps.push('\n  Users part of organization:');
 
       users.forEach((user) => {
-        decoratedProps.push(`  ${user.name} (ID: ${user._id})`);
+        decoratedProps.push(`    - ${user.name} (ID: ${user._id})`);
       });
     }
 
     const tickets = this.getTickets();
 
     if (tickets.length > 0) {
-      decoratedProps.push('Tickets belonging to organization:');
+      decoratedProps.push('\n  Tickets belonging to organization:');
 
       tickets.forEach((ticket) => {
-        decoratedProps.push(`  ${ticket.subject} (ID: ${ticket._id})`);
+        decoratedProps.push(`    - ${ticket.subject} (ID: ${ticket._id})`);
       });
     }
 

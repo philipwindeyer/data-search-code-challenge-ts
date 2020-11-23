@@ -1,4 +1,4 @@
-import { DataCollection } from './search';
+import { DataCollection } from '../data-repository';
 
 export const getSearchableFields = (data: DataCollection) =>
   data.reduce<string[]>((keys, object) => {

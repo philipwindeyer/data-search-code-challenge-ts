@@ -1,9 +1,6 @@
-import { Organization, Ticket, User } from '../data-repository/models';
+import { DataCollection, SearchableObject } from '../data-repository';
 
-type SearchableObject = Organization | Ticket | User;
 const isEmpty = (match: any) => match === undefined || match === '';
-
-export type DataCollection = Array<Organization | Ticket | User>;
 
 export const search = (term: string, value: string, data: DataCollection) =>
   data.filter((object: SearchableObject) => {
