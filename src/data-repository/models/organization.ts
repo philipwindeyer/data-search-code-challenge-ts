@@ -1,5 +1,5 @@
 import { User, Ticket } from '.';
-import { formatAsPrintableString } from '../utils/format-as-printable-string';
+import { formatAsPrintableString } from '../utils';
 
 interface OrganizationProps {
   _id: number;
