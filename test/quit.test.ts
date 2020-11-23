@@ -1,13 +1,13 @@
 import { use, expect } from 'chai';
-import { SinonSpy, stub } from 'sinon';
+import { SinonStub, stub } from 'sinon';
 import { captureSigInt, quit } from '../src/quit';
 
 use(require('sinon-chai'));
 
 describe('quit', () => {
   describe('#quit', () => {
-    let logStub: SinonSpy;
-    let exitStub: SinonSpy;
+    let logStub: SinonStub;
+    let exitStub: SinonStub;
 
     before(() => {
       logStub = stub(console, 'log');
@@ -30,7 +30,7 @@ describe('quit', () => {
   });
 
   describe('#captureSigInt', () => {
-    let onStub: SinonSpy;
+    let onStub: SinonStub;
 
     before(() => {
       onStub = stub(process, 'on');

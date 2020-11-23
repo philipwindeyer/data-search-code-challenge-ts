@@ -69,8 +69,12 @@ describe('#getSearchableFields', () => {
     beforeEach(() => {
       data = organizations.map((organization) => ({
         ...organization,
-        getSomething: () => {},
-        w00tB33r: () => {},
+        getSomething: () => {
+          return 'something';
+        },
+        w00tB33r: () => {
+          return '🍺';
+        },
       }));
     });
 
