@@ -78,4 +78,45 @@ export class Ticket {
   getAssignee() {
     return this.#users.find((user) => user._id === this.assignee_id);
   }
+
+  formatForDisplay() {
+    const decoratedProps = [
+      `_id:             ${this._id}`,
+      `url:             ${this.url}`,
+      `external_id:     ${this.external_id}`,
+      `created_at:      ${this.created_at}`,
+      `type:            ${this.type}`,
+      `subject:         ${this.subject}`,
+      `description:     ${this.description}`,
+      `priority:        ${this.priority}`,
+      `status:          ${this.status}`,
+      `submitter_id:    ${this.submitter_id}`,
+      `assignee_id:     ${this.assignee_id}`,
+      `organization_id: ${this.organization_id}`,
+      `tags:            ${this.tags}`,
+      `has_incidents:   ${this.has_incidents}`,
+      `due_at:          ${this.due_at}`,
+      `via:             ${this.via}`,
+    ];
+
+    const organization = this.getOrganization();
+
+    if (organization) {
+      decoratedProps.push(`For organization: ${organization.name} (ID: ${organization._id})`);
+    }
+
+    const submitter = this.getSubmitter();
+
+    if (submitter) {
+      decoratedProps.push(`Submitted by: ${submitter.name} (ID: ${submitter._id})`);
+    }
+
+    const assignee = this.getAssignee();
+
+    if (assignee) {
+      decoratedProps.push(`Assigned to: ${assignee.name} (ID: ${assignee._id})`);
+    }
+
+    return decoratedProps.join('\n');
+  }
 }

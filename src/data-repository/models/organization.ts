@@ -53,4 +53,40 @@ export class Organization {
   getTickets() {
     return this.#tickets.filter((ticket) => ticket.organization_id === this._id);
   }
+
+  formatForDisplay() {
+    const decoratedProps = [
+      `_id:            ${this._id}`,
+      `url:            ${this.url}`,
+      `external_id:    ${this.external_id}`,
+      `name:           ${this.name}`,
+      `domain_names :  ${this.domain_names}`,
+      `created_at:     ${this.created_at}`,
+      `details:        ${this.details}`,
+      `shared_tickets: ${this.shared_tickets}`,
+      `tags:           ${this.tags}`,
+    ];
+
+    const users = this.getUsers();
+
+    if (users.length > 0) {
+      decoratedProps.push('Users part of organization:');
+
+      users.forEach((user) => {
+        decoratedProps.push(`  ${user.name} (ID: ${user._id})`);
+      });
+    }
+
+    const tickets = this.getTickets();
+
+    if (tickets.length > 0) {
+      decoratedProps.push('Tickets belonging to organization:');
+
+      tickets.forEach((ticket) => {
+        decoratedProps.push(`  ${ticket.subject} (ID: ${ticket._id})`);
+      });
+    }
+
+    return decoratedProps.join('\n');
+  }
 }
